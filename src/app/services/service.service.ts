@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Service } from '../model/service.model';
@@ -6,54 +7,20 @@ import { Service } from '../model/service.model';
   providedIn: 'root',
 })
 export class ServiceService {
-  private services: Service[] = [
-    new Service(
-      (parseFloat(Math.random().toFixed(3)) * 1000).toString(),
-      'Electricidad',
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      'Hogar'
-    ),
-    new Service(
-      (parseFloat(Math.random().toFixed(3)) * 1000).toString(),
-      'Auxilio Mecánico',
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      'Autos'
-    ),
-    new Service(
-      (parseFloat(Math.random().toFixed(3)) * 1000).toString(),
-      'Chofer reemplazo',
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      'Autos'
-    ),
-    new Service(
-      (parseFloat(Math.random().toFixed(3)) * 1000).toString(),
-      'Médico a domicilio',
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      'Salud'
-    ),
-    new Service(
-      (parseFloat(Math.random().toFixed(3)) * 1000).toString(),
-      'Ambulancia',
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      'Salud'
-    ),
-    new Service(
-      (parseFloat(Math.random().toFixed(3)) * 1000).toString(),
-      'Gasfitero',
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      'Hogar'
-    ),
-  ];
+  private services: Service[] = [];
 
   servicesChanged = new Subject<Service[]>();
   serviceUpdates = new Subject<Service | undefined>();
 
   private activeFilter = 'Todos';
 
-  constructor() {}
+  constructor(private httpClient: HttpClient) {}
 
   fetchData() {
-    this.servicesChanged.next(this.services);
+    this.httpClient.get("assets/data.json").subscribe(data =>{
+      Object.assign(this.services, data);
+      this.servicesChanged.next(this.services);
+    });
   }
 
   save(service: Service) {
