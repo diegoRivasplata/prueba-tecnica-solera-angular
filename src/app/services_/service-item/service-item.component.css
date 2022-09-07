@@ -1,0 +1,8 @@
+div.card{
+  height: 100%;
+  max-height: 250px;
+}
+
+:host-context(.updating) div {
+  box-shadow: inset 0px 0px 10px 0px rgba(6, 209, 40, 0.548)
+}

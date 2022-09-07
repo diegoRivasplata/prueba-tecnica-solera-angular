@@ -1,0 +1,55 @@
+<div class="grid-container text-center pb-4">
+  <app-service-item
+    *ngFor="let item of servicesList"
+    [service]="item"
+    id="{{ item.id }}"
+    (deleteServiceEvent)="onDeleteServiceEvent($event)"
+  ></app-service-item>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="confirmDeleteServiceModal"
+  tabindex="-1"
+  aria-labelledby="confirmDeleteModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDeleteModalLabel">Eliminar</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="onCancel()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        ¿Está seguro que desea eliminar este servicio: <b>{{serviceToDelete?.title}}</b>?
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="onCancel()"
+        >
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="onDelete()"
+        >
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="card position-sticky top-0">
+  <form [formGroup]="serviceForm" (submit)="onSaveService($event)">
+    <div class="card-body text-start">
+      <h5 class="card-title">Servicio</h5>
+      <div class="mb-2">
+        <label for="name" class="form-label">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          formControlName='title'
+        />
+        <div *ngIf="serviceForm.controls.title.touched && serviceForm.controls.title.invalid" class='error-message'>
+          <span *ngIf="serviceForm.controls.title.errors?.['required']">
+            * Debe ingresar un valor
+          </span>
+          <span *ngIf="serviceForm.controls.title.errors?.['minlength']">
+            * Mínimo 3 caracteres
+          </span>
+          <span *ngIf="serviceForm.controls.title.errors?.['maxlength']">
+            * Máximo 20 caracteres
+          </span>
+        </div>
+      </div>
+      <div class="mb-2">
+        <label for="description" class="form-label">Descripción</label>
+        <input
+          type="text"
+          class="form-control"
+          id="description"
+          formControlName='description'
+        />
+        <div *ngIf="serviceForm.controls.description.touched && serviceForm.controls.description.invalid" class='error-message'>
+          <span *ngIf="serviceForm.controls.description.errors?.['required']">
+            * Debe ingresar un valor
+          </span>
+          <span *ngIf="serviceForm.controls.description.errors?.['minlength']">
+            * Mínimo 3 caracteres
+          </span>
+          <span *ngIf="serviceForm.controls.description.errors?.['maxlength']">
+            * Máximo 20 caracteres
+          </span>
+        </div>
+        <div class="mb-2">
+          <label for="category" class="form-label">Categoría</label>
+          <select class='form-select' id="category"
+          formControlName='category'>
+          <option value="" disabled selected hidden>Selecciona una opción</option>
+            <option *ngFor='let item of categories' value={{item}}>{{item}}</option>
+          </select>
+          <div *ngIf="serviceForm.controls.category.touched && serviceForm.controls.category.invalid" class='error-message'>
+            <span *ngIf="serviceForm.controls.category.errors?.['required']">
+              * Debe ingresar un valor
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-start">
+      <button type="submit" class="btn btn-outline-success me-2">Grabar</button>
+      <button type="button" class="btn btn-outline-danger" (click)="onCancel()">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>
